@@ -1,6 +1,7 @@
 import { UserController } from "./controllers/user.js";
 import { connect, disconnect } from "mongoose";
 import { env } from "./env.js"
+import { UserService } from "./services/user.js";
 
 
 const connectToDb = async () => {
@@ -26,7 +27,8 @@ export async function init() {
     await connectToDb();
     // setup services, controller, etc
 
-    const userController = new UserController();
+    const userService = new UserService();
+    const userController = new UserController(userService);
 
     return {
         connectToDb,

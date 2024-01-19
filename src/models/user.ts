@@ -1,25 +1,29 @@
-import mongoose, { Schema } from 'mongoose';
+export interface IUser {
+    id?: string;
+    firstName: string;
+    lastName: string;
+    birthDate: Date;
+    createdAt?: Date;
+    updatedAt?: Date;
+};
 
-const UserSchema = new Schema({
-    firstName: { type: String, required: true },
-    lastName: { type: String, required: true }
-}, {
-    timestamps: {
-        createdAt: 'createdAt',
-        updatedAt: 'updatedAt'
-    },
-    toJSON: {
-        transform: function (doc, ret) {
-            ret.id = ret._id.toString();
+export interface IUserCreateRequest {
+    firstName: string;
+    lastName: string;
+    birthDate: string;
+}
 
-            delete ret._id;
-            delete ret.__v;
+export interface IUserResponse {
+    id?: string;
+    firstName?: string;
+    lastName?: string;
+    birthDate?: string;
+    createdAt?: string;
+    updatedAt?: string;
+}
 
-            return ret;
-        },
-    },
-});
-
-const UserModel = mongoose.model('User', UserSchema);
-
-export { UserModel };
+export interface IUserUpdateRequest {
+    firstName?: string;
+    lastName?: string;
+    birthDate?: string;
+}

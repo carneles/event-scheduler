@@ -1,7 +1,9 @@
-import mongoose, { Schema } from 'mongoose';
+import { Schema, model } from 'mongoose';
+import { IUser } from '../models/user.js';
 
-const EventSchema = new Schema({
-    name: { type: String, required: true },
+const UserSchema = new Schema<IUser>({
+    firstName: { type: String, required: true },
+    lastName: { type: String, required: true }
 }, {
     timestamps: {
         createdAt: 'createdAt',
@@ -19,6 +21,6 @@ const EventSchema = new Schema({
     },
 });
 
-const EventModel = mongoose.model('Event', EventSchema);
+const UserModel = model<IUser>('User', UserSchema);
 
-export { EventModel };
+export { UserModel };

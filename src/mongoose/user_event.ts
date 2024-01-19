@@ -10,7 +10,7 @@ const UserEventSchema = new Schema({
         updatedAt: 'updatedAt'
     },
     toJSON: {
-        transform: function (doc, ret) {
+        transform: function (_, ret) {
             ret.id = ret._id.toString();
 
             delete ret._id;

@@ -1,0 +1,16 @@
+version: '3.1'
+
+networks:
+  event-scheduler:
+    driver: bridge
+
+services:
+  mongo:
+    image: mongo
+    ports:
+      - 27017:27017
+    networks:
+      - event-scheduler
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: example

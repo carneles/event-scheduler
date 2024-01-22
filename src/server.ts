@@ -1,9 +1,10 @@
-import { env } from "./env.js"
-import { createApp } from "./app.js"
+import { env } from "./env"
+import { createApp, createJob } from "./app"
 import gracefulShutdown from 'http-graceful-shutdown'
 
 (async () => {
     try {
+        await createJob();
         const app = await createApp();
         const server = app.listen(env.PORT, () => {
             console.log("Server Running on Port " + env.PORT)

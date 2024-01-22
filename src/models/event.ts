@@ -1,24 +1,19 @@
-import mongoose, { Schema } from 'mongoose';
+import { StandardError } from "src/utils/standard_error";
 
-const EventSchema = new Schema({
-    name: { type: String, required: true },
-}, {
-    timestamps: {
-        createdAt: 'createdAt',
-        updatedAt: 'updatedAt'
-    },
-    toJSON: {
-        transform: function (doc, ret) {
-            ret.id = ret._id.toString();
+export interface IEvent {
+    id?: string;
+    name: string;
+    message: string;
+    createdAt?: Date | string;
+    updatedAt?: Date | string;
+};
 
-            delete ret._id;
-            delete ret.__v;
+export interface IEventCreateRequest {
+    name?: string;
+    message?: string;
+}
 
-            return ret;
-        },
-    },
-});
-
-const EventModel = mongoose.model('Event', EventSchema);
-
-export { EventModel };
+export interface IEventResponse {
+    error?: StandardError
+    data?: IEvent
+}

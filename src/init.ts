@@ -1,11 +1,17 @@
-import { UserController } from "./controllers/user.js";
+import { UserController } from "./controllers/user";
 import { connect, disconnect } from "mongoose";
-import { env } from "./env.js"
-
+import { env } from "./env"
+import { UserService } from "./services/user";
+import { EventController } from "./controllers/event";
+import { EventService } from "./services/event";
 
 const connectToDb = async () => {
     try {
-        let dbUri = `mongodb://${env.DATABASE_USER}:${env.DATABASE_PASSWORD}@${env.DATABASE_HOST}:${env.DATABASE_PORT}/${env.DATABASE_NAME}`;
+        let userInfo = `${env.DATABASE_USER}:${env.DATABASE_PASSWORD}@`;
+        if (userInfo === ':@') {
+            userInfo = '';
+        }
+        const dbUri = `mongodb://${userInfo}${env.DATABASE_HOST}:${env.DATABASE_PORT}/${env.DATABASE_NAME}`;
         await connect(dbUri);
     } catch (err) {
         console.log(err);
@@ -26,11 +32,16 @@ export async function init() {
     await connectToDb();
     // setup services, controller, etc
 
-    const userController = new UserController();
+    const userService = new UserService();
+    const userController = new UserController(userService);
+
+    const eventService = new EventService();
+    const eventController = new EventController(eventService);
 
     return {
         connectToDb,
         disconnectFromDb,
-        userController
+        userController,
+        eventController
     };
 }

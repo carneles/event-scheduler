@@ -10,5 +10,9 @@ export const env = {
     DATABASE_PORT: process.env.DB_PORT || '27017',
     DATABASE_USER: process.env.DB_USER,
     DATABASE_PASSWORD: process.env.DB_PASSWORD,
-    DATABASE_NAME: process.env.DB_NAME || 'event-scheduler'
+    DATABASE_NAME: process.env.DB_NAME || 'event-scheduler',
+    DATE_FORMAT: process.env.DATE_FORMAT || 'YYYY-MM-DD',
+    DATE_TIME_FORMAT: process.env.DATE_TIME_FORMAT || 'YYYY-MM-DD HH:mm:ss',
+    MESSAGE_SEND_TIME: process.env.MESSAGE_SEND_TIME || '9',
+    MESSAGE_SEND_MAX_RETRY: process.env.MESSAGE_SEND_MAX_RETRY || '3'
 };

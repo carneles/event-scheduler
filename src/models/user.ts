@@ -1,25 +1,33 @@
-import mongoose, { Schema } from 'mongoose';
+import { StandardError } from "src/utils/standard_error";
 
-const UserSchema = new Schema({
-    firstName: { type: String, required: true },
-    lastName: { type: String, required: true }
-}, {
-    timestamps: {
-        createdAt: 'createdAt',
-        updatedAt: 'updatedAt'
-    },
-    toJSON: {
-        transform: function (doc, ret) {
-            ret.id = ret._id.toString();
+export interface IUser {
+    id?: string;
+    firstName: string;
+    lastName: string;
+    email: string;
+    timezone?: string;
+    birthDate: Date | string;
+    createdAt?: Date | string;
+    updatedAt?: Date | string;
+};
 
-            delete ret._id;
-            delete ret.__v;
+export interface IUserCreateRequest {
+    firstName?: string;
+    lastName?: string;
+    email?: string;
+    birthDate?: string;
+    timezone?: string;
+}
 
-            return ret;
-        },
-    },
-});
+export interface IUserResponse {
+    error?: StandardError
+    data?: IUser
+}
 
-const UserModel = mongoose.model('User', UserSchema);
-
-export { UserModel };
+export interface IUserUpdateRequest {
+    firstName?: string;
+    lastName?: string;
+    email?: string;
+    timezone?: string;
+    birthDate?: string;
+}
